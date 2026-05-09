@@ -35,13 +35,25 @@ data/*.xlsx
 data/raw/
 !data/README.md
 
-# Generated artifacts (regenerable from the pipeline)
+# Backups and editor noise
 *.bak
-data/*.manifest.yaml
-quality_report_*.md
-reports/figures/
+*.swp
+*~
+
+# Pipeline-generated artifacts that DO go into git as demo evidence:
+#   data/*.manifest.yaml — versionable manifest from /snapshot-data
+#   quality_report_*.md  — output from /quality-report
+#   reports/figures/*.png — figures referenced from the EDA report
+#   notebooks/*.ipynb     — the demo notebook executed end-to-end
 
 # Backups / experiments
 *_backup*
 *_test*
 *_unknown_origin*
+
+# Corporate templates — never publish
+**/reference.docx
+**/templates/reference.docx
+
+# Generated DOCX inherits corporate styles — keep markdown only as the public artifact
+reports/*.docx
