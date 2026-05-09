@@ -1,0 +1,48 @@
+file:
+  path: ../data/messi_all_goals.csv
+  size_bytes: 100917
+  sha256: 6eaeec485cede11fc0d648236ea1fea00fdbb5b7b0bb5a21afb1da047b40d53f
+  modified_at: '2026-03-22T12:44:42Z'
+schema:
+  rows: 790
+  cols: 16
+  columns:
+  - competition
+  - match_stage
+  - date
+  - venue
+  - club
+  - opponent
+  - match_score
+  - player_position
+  - goal_minute
+  - score_at_goal
+  - goal_type
+  - assist_player
+  - season
+  - goal_decade
+  - is_home_goal
+  - goal_minute_bucket
+  dtypes:
+    competition: str
+    match_stage: str
+    date: str
+    venue: str
+    club: str
+    opponent: str
+    match_score: str
+    player_position: str
+    goal_minute: int64
+    score_at_goal: str
+    goal_type: str
+    assist_player: str
+    season: str
+    goal_decade: str
+    is_home_goal: bool
+    goal_minute_bucket: str
+  dtypes_fingerprint: c92d3c8097532bfe
+  null_counts: {}
+generated:
+  by: snapshot-data
+  at: '2026-05-09T02:51:49Z'
+  format: csv
