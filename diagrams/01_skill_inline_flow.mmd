@@ -1,0 +1,36 @@
+sequenceDiagram
+    participant U as Usuario
+    participant C as Claude (sesión)
+    participant FS as Filesystem
+    participant Py as Python/Tools
+
+    Note over C: Context inicial:<br/>Solo descriptions de<br/>todos los skills
+
+    U->>C: /analyze-dataset data/data.csv
+    C->>FS: Read SKILL.md
+    FS-->>C: 140 líneas / ~7KB
+    Note over C: Ahora sabe las reglas<br/>y secciones a generar
+
+    C->>FS: Read data/data.csv
+    FS-->>C: filas + dtypes
+    Note over C: Step 1: entiende el dataset
+
+    C->>C: Decide secciones aplicables
+    Note over C: Step 2: crea notebook
+
+    alt Necesita detalle estructural
+        C->>FS: Read templates/notebook-structure.md
+        FS-->>C: skeleton celda por celda
+    end
+
+    alt Necesita modelo de estilo
+        C->>FS: Read examples/example-sections.md
+        FS-->>C: ejemplos de narrativa y funciones
+    end
+
+    loop Para cada sección (1..9)
+        C->>Py: Escribe celdas code/markdown
+    end
+
+    C->>FS: Write analysis_data.ipynb
+    C->>U: Reporte final (# celdas, tipos de viz, etc.)

@@ -1,0 +1,22 @@
+sequenceDiagram
+    participant U as Usuario
+    participant C as Claude (sesión principal)
+    participant F as Claude (fork — contexto aislado)
+    participant FS as Filesystem
+
+    Note over C: Context principal:<br/>historia de la conversación<br/>+ skill descriptions
+
+    U->>C: /analyze-dataset data/data.csv
+    C->>F: Spawn fork con SKILL.md + argumentos
+    Note over F: Context del fork:<br/>SKILL.md + CLAUDE.md<br/>SIN historia previa
+
+    F->>FS: Read data/data.csv
+    F->>FS: Read templates/, examples/
+    F->>F: Genera notebook (todo ocurre aquí)
+    F->>FS: Write analysis_data.ipynb
+
+    F-->>C: Solo devuelve el reporte final<br/>(# celdas, viz types, etc.)
+    Note over F: Context del fork se descarta
+
+    C->>U: "Generé el notebook con N celdas..."
+    Note over C: Context principal:<br/>solo suma el resumen,<br/>NO el razonamiento del fork

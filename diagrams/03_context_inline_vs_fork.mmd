@@ -1,0 +1,23 @@
+flowchart TB
+    subgraph Inline["Skill inline (default)"]
+        direction TB
+        I0["t=0<br/>Context: 2K tokens<br/>skill descriptions"]
+        I1["t=1: invoca skill<br/>Context: +SKILL.md<br/>→ 4K"]
+        I2["t=2: lee data<br/>Context: +filas<br/>→ 4.3K"]
+        I3["t=3: lee auxiliares<br/>Context: +templates+examples<br/>→ 8K"]
+        I4["t=4: genera notebook<br/>Context: +celdas generadas<br/>→ 15K"]
+        I5["t=FIN<br/>Context final: ~15K tokens<br/>TODO persiste"]
+        I0 --> I1 --> I2 --> I3 --> I4 --> I5
+    end
+
+    subgraph Fork["Skill con context: fork"]
+        direction TB
+        F0["t=0<br/>Context principal: 2K<br/>skill descriptions"]
+        F1["t=1: invoca skill<br/>Claude spawnea fork<br/>Context principal: 2K (sin cambio)"]
+        F2["t=2..N<br/>El fork ejecuta aislado<br/>Context fork: 15K<br/>Context principal: 2K"]
+        F3["t=FIN<br/>Fork devuelve resumen<br/>Context principal: 2.5K<br/>Context fork: descartado"]
+        F0 --> F1 --> F2 --> F3
+    end
+
+    style Inline fill:#fef3c7
+    style Fork fill:#dcfce7

@@ -1,0 +1,50 @@
+Timeline de evolución del contexto durante /analyze-dataset (vista ASCII)
+
+t=0  ──────────────────────────────────────────────
+     Context: [system prompt base + 10 skill descriptions]
+     Tamaño aprox: ~500 tokens por skills
+     Claude sabe: "existe /analyze-dataset y hace X"
+     Claude NO sabe: cómo funciona ni sus reglas
+
+     ↓ Usuario tipea: /analyze-dataset data/data.csv
+
+t=1  ──────────────────────────────────────────────
+     Claude resuelve argumentos y lee el SKILL.md
+     Context += SKILL.md completo (~2000 tokens)
+     Claude ahora sabe: las 9 secciones, reglas de viz,
+     reglas de narrativa, dónde están los auxiliares.
+
+     ↓ Step 1: Read data/data.csv
+
+t=2  ──────────────────────────────────────────────
+     Context += primeras filas + dtypes (~300 tokens)
+     Claude entiende el dominio: goles de Messi, 13 cols,
+     columnas temporales, categóricas, numéricas.
+
+     ↓ Step 2: Claude decide que necesita detalle estructural
+        → lee templates/notebook-structure.md
+
+t=3  ──────────────────────────────────────────────
+     Context += template (~1500 tokens)
+     Ahora Claude tiene el skeleton celda por celda.
+
+     ↓ Claude decide que también necesita criterio de estilo
+        → lee examples/example-sections.md
+
+t=4  ──────────────────────────────────────────────
+     Context += examples (~2000 tokens)
+     Ahora Claude tiene ejemplos concretos de cómo
+     escribir una observación buena, una hipótesis bien
+     planteada, una viz avanzada tipada.
+
+     ↓ Genera el notebook sección por sección
+
+t=5..N  ──────────────────────────────────────────
+     Context va creciendo con el contenido generado
+     (celdas del notebook, tool calls, resultados)
+
+     ↓ Termina y reporta
+
+t=FIN  ────────────────────────────────────────────
+     Output: analysis_data.ipynb en disco
+     Context final: ~15000 tokens

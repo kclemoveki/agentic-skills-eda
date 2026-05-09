@@ -1,0 +1,18 @@
+flowchart LR
+    U[Usuario] --> Q{¿Qué necesito?}
+
+    Q -->|"Razonamiento visible<br/>continuidad con la charla"| SI[Skill inline]
+    Q -->|"Aislar contexto<br/>tarea bien definida"| SF[Skill con fork]
+    Q -->|"Rol con persona propia<br/>composable con otros"| AG[Agent custom]
+
+    SI --> SIR["Suma al contexto:<br/>SKILL.md + auxiliares<br/>+ tool results + output"]
+    SF --> SFR["Suma al contexto:<br/>SOLO el resumen final"]
+    AG --> AGR["Suma al contexto:<br/>SOLO el output del agent"]
+
+    SIR --> MAIN[Context principal]
+    SFR --> MAIN
+    AGR --> MAIN
+
+    style SI fill:#fef3c7
+    style SF fill:#dcfce7
+    style AG fill:#dbeafe

@@ -1,0 +1,24 @@
+flowchart TB
+    subgraph Always["Siempre cargado en contexto"]
+        D1["description /analyze-dataset<br/>~20 tokens"]
+        D2["description /quality-report<br/>~20 tokens"]
+        D3["description /otro-skill<br/>~20 tokens"]
+        D4["... (N skills más)"]
+    end
+
+    Always --> Decision{"¿Tu pedido<br/>matchea alguno?"}
+
+    Decision -->|No| Nada["No se carga nada más<br/>Costo: ~100 tokens totales"]
+    Decision -->|Sí| Load1["Carga SKILL.md<br/>~2K tokens"]
+
+    Load1 --> Need1{"¿Necesita<br/>detalle extra?"}
+    Need1 -->|No| Exec["Ejecuta con lo que tiene"]
+    Need1 -->|Sí| Load2["Carga templates/ examples/<br/>~3K tokens"]
+    Load2 --> Exec
+
+    Exec --> Out["Output final<br/>(notebook, report, etc.)"]
+
+    style Always fill:#f3f4f6
+    style Nada fill:#dcfce7
+    style Load1 fill:#fef3c7
+    style Load2 fill:#fed7aa
