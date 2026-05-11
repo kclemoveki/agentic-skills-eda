@@ -64,7 +64,13 @@ Ver [`data/README.md`](data/README.md) — el dataset está en Kaggle bajo CC BY
 
 ## Cómo correr el pipeline
 
-Una vez con el venv activo y el dataset en `data/messi_all_goals.csv`:
+Con el venv activo y el dataset en `data/messi_all_goals.csv`, lanzá Claude Code desde la raíz del repo:
+
+```bash
+claude
+```
+
+Y dentro de la sesión, tipeá los siete comandos en orden:
 
 ```
 /snapshot-data data/messi_all_goals.csv
