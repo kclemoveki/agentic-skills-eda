@@ -37,15 +37,26 @@ Claude Code los descubre automáticamente. Verificá tipeando `/help` en una ses
 
 ### 3. Crear un entorno Python con las deps
 
+**Requisito**: Python **3.11 o superior** (`pandas 3.x`, `numpy 2.x` y `matplotlib 3.10+` no soportan Python ≤ 3.10).
+
 Usá la herramienta que prefieras (pip, uv, conda, poetry, etc.). Ejemplo con venv estándar:
 
 ```bash
-python3 -m venv .venv
+python3.11 -m venv .venv
 source .venv/bin/activate
+pip install --upgrade pip
 pip install -r requirements.txt
+pip install papermill==2.7.0
 ```
 
-Las versiones del `requirements.txt` son las exactas que produjo `/freeze-deps` en la corrida de demo. Cualquier versión razonable de pandas/numpy/papermill/etc. también debería funcionar.
+**Por qué `papermill` separado:** `requirements.txt` lo genera `/freeze-deps`, que detecta los imports **dentro del notebook**. Papermill es la herramienta que **ejecuta** el notebook (la usa `/execute-notebook`), no algo que el notebook importe. Por eso queda invisible al introspeccionar imports y hay que instalarlo aparte.
+
+Si tu sistema no tiene Python 3.11 disponible:
+- macOS: `brew install python@3.11`
+- Ubuntu/Debian: `sudo apt install python3.11 python3.11-venv`
+- Otras distros: ver [python.org/downloads](https://www.python.org/downloads/)
+
+Las versiones del `requirements.txt` son las exactas que produjo `/freeze-deps` en la corrida de demo. Si querés menos estrictez, podés relajar los pins (`==` → `>=`) y probar tu suerte con versiones más viejas, pero no está testeado.
 
 ### 4. Bajar el dataset (opcional, si querés reproducir la demo)
 
